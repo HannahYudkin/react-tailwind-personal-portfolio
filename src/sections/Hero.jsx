@@ -171,7 +171,7 @@ export const Hero = () => {
                     </div>
                     {/* Stat Badge */}
                     <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float">
-                      <div className="text-xl font-bold text-primary">2 Bachelor's Degrees</div>
+                      <div className="text-xl font-bold text-primary">Dual Bachelor's Degrees</div>
                       <div className="text-xs text-muted-foreground">Marketing & Technology</div>
                     </div>
                   </div>
