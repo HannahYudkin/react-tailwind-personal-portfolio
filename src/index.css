@@ -1,0 +1,501 @@
+@import "tailwindcss";
+
+
+@theme {
+  --color-background: #FDE0E1;
+  --color-foreground: #363737;
+
+  --color-card: #FABAB8;
+
+  --color-primary: #356867;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: #fcf2f2;
+  --color-secondary-foreground: #53a09e;
+
+  --color-muted: #DADEBC;
+  --color-muted-foreground: #5b5b5b;
+
+  --color-border: #9faf8d;
+
+  --radius: 0.75rem;
+
+  --color-highlight: #fcf2f2;
+  --color-surface: #fcf2f2;
+}
+
+@layer base {
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Inter", sans-serif;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .font-serif {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+@layer components {
+
+  /* Section headers: zero h2 margin, extra top margin so span-to-h2 gap is larger.
+   * !important overrides Tailwind's space-y-5 which sets margin-top on children. */
+  .section-header h2 {
+    /* margin: 0 !important; */
+    margin-top: 1rem !important;
+  }
+
+  .profile-photo {
+    object-position: 20%;
+  }
+
+  /* About section: highlight icon box background changes on hover */
+  .about-highlight-icon-box {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    transition: background-color 300ms ease;
+  }
+
+  .about-highlight-icon-box:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  }
+
+  .glass {
+    background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  .glass-strong {
+    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  }
+
+  /* Navbar: fully transparent when not scrolled */
+  header.bg-transparent {
+    background-color: transparent;
+  }
+
+  /* When scrolled: nav links pill uses pink instead of off-white */
+  header.glass-strong nav .glass {
+    background-color: color-mix(in srgb, var(--color-background) 90%, transparent);
+    border-color: color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  /* Thin extension below navbar so glass covers pink band; teal border at true bottom edge */
+  header.glass-strong {
+    border-bottom-color: transparent;
+    /* Navbar when scrolled: more transparent than default .glass-strong (50% vs 80%) */
+    background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+  }
+
+  header.glass-strong::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    height: 1px;
+    background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    pointer-events: none;
+  }
+
+  .glow-text {
+    text-shadow:
+      0 0 12px rgba(255, 255, 255, 1),
+      0 0 24px rgba(255, 255, 255, 0.85),
+      0 0 48px rgba(255, 255, 255, 0.65);
+  }
+
+  .glow-border {
+    box-shadow:
+      0 0 20px color-mix(in srgb, var(--color-primary) 20%, transparent),
+      inset 0 0 20px color-mix(in srgb, var(--color-primary) 5%, transparent);
+  }
+
+  .glass a {
+    transition: color 200ms ease, background-color 200ms ease;
+  }
+
+  .glass a:hover {
+    color: var(--color-foreground);
+    background-color: var(--color-surface);
+  }
+
+  /* instead of .glass a { ... } */
+  a.glass {
+    transition: color 200ms ease, background-color 200ms ease;
+  }
+
+  /* instead of .glass a:hover { ... } */
+  a.glass:hover {
+    color: var(--color-primary);
+    /* icon color becomes primary */
+    background-color: var(--color-surface);
+    /* lighter background */
+  }
+
+  .animated-border-btn {
+    background-color: var(--color-card);
+    color: var(--color-primary);
+    transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+
+  button.animated-border-btn:hover,
+  button.animated-border-btn:focus-visible {
+    background-color: color-mix(in srgb, var(--color-card) 50%, transparent 30%);
+    color: var(--color-primary-foreground);
+    transform: translateY(-1px);
+  }
+
+  .animated-border-path {
+    stroke-dashoffset: 800;
+    transition: stroke-dashoffset 0s;
+  }
+
+  .animated-border-btn:hover .animated-border-path,
+  .animated-border-btn:focus-visible .animated-border-path {
+    animation: border-dash 2s linear infinite;
+    /* backdrop-filter: blur(16px);
+    box-shadow: 0 0 20px color-mix(in srgb, color 20%, #FABAB8 transparent); */
+  }
+
+  .skill-item {
+    color: color-mix(in srgb, var(--color-muted-foreground) 50%, transparent);
+    transition: color 200ms ease-in-out;
+  }
+
+  .skill-item:hover {
+    color: var(--color-foreground) !important;
+  }
+
+  .scroll-indicator {
+    color: var(--color-muted-foreground);
+    transition: color 200ms ease-in-out;
+  }
+
+  .scroll-indicator:hover,
+  .scroll-indicator:hover * {
+    color: var(--color-primary) !important;
+  }
+
+  /* Projects: zoom image/video on card hover (plain CSS so it works in all browsers) */
+  .project-media-zoom {
+    transition: transform 0.5s ease-out;
+  }
+
+  .project-card-hover:hover .project-media-zoom {
+    transform: scale(1.1);
+  }
+
+  /* Project card overlay icon: show on card hover */
+  .project-card-overlay {
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card-hover:hover .project-card-overlay {
+    opacity: 1;
+  }
+
+  /* Project card: entire card changes color on hover */
+  .project-card-hover.glass {
+    transition: background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  }
+
+  .project-card-hover.glass:hover {
+    background-color: color-mix(in srgb, var(--color-primary-foreground) 15%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-border));
+  }
+
+  /* Project card: only h3 and arrow links; title/arrow color on hover over title or arrow */
+  .project-card-hover .project-card-title-link,
+  .project-card-hover .project-card-arrow-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card-hover .project-card-title-link:hover,
+  .project-card-hover .project-card-arrow-link:hover {
+    color: var(--color-primary);
+  }
+
+  .project-card-title {
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  .project-card-title-row:hover .project-card-title {
+    color: var(--color-primary);
+  }
+
+  .project-card-arrow {
+    color: var(--color-foreground);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card-title-row:hover .project-card-arrow {
+    color: var(--color-primary);
+  }
+
+  /* Arrow moves only when hovering the arrow link */
+  .project-card-arrow-link:hover .project-card-arrow {
+    transform: translate(0.25rem, -0.25rem);
+  }
+
+  .project-card-hover .project-card-overlay-icon {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Project card tags: hover transition */
+  .project-tag {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    color: var(--color-primary);
+    border: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
+    border-radius: 9999px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .project-tag:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  }
+
+}
+
+/* Projects: show link icon on card hover (outside @layer so it always applies) */
+.project-card-icon-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.project-card-hover:hover .project-card-icon-overlay {
+  opacity: 1;
+}
+
+/* Keyframes outside @layer so Tailwind's parser accepts them */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes border-dash {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 800;
+  }
+}
+
+@keyframes slow-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(var(--dx1, 0), var(--dy1, 0));
+  }
+
+  50% {
+    transform: translate(var(--dx2, 0), var(--dy2, 0));
+  }
+
+  75% {
+    transform: translate(var(--dx3, 0), var(--dy3, 0));
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out both;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  /* Stagger children: each direct child fades in 100ms after the previous */
+  .stagger-fade-in>* {
+    animation: fade-in 0.5s ease-out both;
+  }
+
+  /* Ensure content is visible when animations are disabled (e.g. Reduce motion) */
+  @media (prefers-reduced-motion: reduce) {
+    .stagger-fade-in>* {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+
+  .stagger-fade-in>*:nth-child(1) {
+    animation-delay: 0ms;
+  }
+
+  .stagger-fade-in>*:nth-child(2) {
+    animation-delay: 100ms;
+  }
+
+  .stagger-fade-in>*:nth-child(3) {
+    animation-delay: 200ms;
+  }
+
+  .stagger-fade-in>*:nth-child(4) {
+    animation-delay: 300ms;
+  }
+
+  .stagger-fade-in>*:nth-child(5) {
+    animation-delay: 400ms;
+  }
+
+  .stagger-fade-in>*:nth-child(6) {
+    animation-delay: 500ms;
+  }
+
+  .stagger-fade-in>*:nth-child(7) {
+    animation-delay: 600ms;
+  }
+
+  .stagger-fade-in>*:nth-child(8) {
+    animation-delay: 700ms;
+  }
+
+  .stagger-fade-in>*:nth-child(9) {
+    animation-delay: 800ms;
+  }
+
+  .stagger-fade-in>*:nth-child(10) {
+    animation-delay: 900ms;
+  }
+
+  .stagger-fade-in>*:nth-child(11) {
+    animation-delay: 1000ms;
+  }
+
+  .stagger-fade-in>*:nth-child(12) {
+    animation-delay: 1100ms;
+  }
+
+  .stagger-fade-in>*:nth-child(13) {
+    animation-delay: 1200ms;
+  }
+
+  .stagger-fade-in>*:nth-child(14) {
+    animation-delay: 1300ms;
+  }
+
+  .stagger-fade-in>*:nth-child(15) {
+    animation-delay: 1400ms;
+  }
+
+  .timeline-glow {
+    box-shadow: 0 0 40px color-mix(in srgb, var(--color-primary) 35%, transparent),
+      0 0 80px color-mix(in srgb, var(--color-primary) 5%, transparent);
+  }
+
+  /* Experience timeline: overlap on desktop but keep at least moderate spacing between all cards */
+  .experience-timeline-items>*+* {
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .experience-timeline-items>*+* {
+      /* -4rem keeps ~2rem+ gap for small cards; larger cards get more gap. Use -3rem for more spacing. */
+      margin-top: -4rem;
+    }
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px color-mix(in srgb, var(--color-primary-foreground) 30%, transparent),
+      inset 0 0 10px color-mix(in srgb, var(--color-primary-foreground) 15%, transparent);
+  }
+
+  50% {
+    box-shadow:
+      0 0 24px color-mix(in srgb, var(--color-primary-foreground) 60%, transparent),
+      inset 0 0 20px color-mix(in srgb, var(--color-primary-foreground) 30%, transparent);
+  }
+}
+
+.glow-border-animated {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* Hero: background image fades to transparent at the bottom (no harsh cut) */
+.hero-bg-image-mask {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+}
+
+/* Animated background: canvas gradient (scoped so it doesn’t affect the rest of the site) */
+.animated-bg-canvas {
+  display: block;
+  background: #ee9ca7;
+  background: linear-gradient(to top, #ffdde1, #ee9ca7);
+}
