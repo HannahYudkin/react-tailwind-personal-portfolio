@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { ArrowRight, Linkedin, Github, Mail, ChevronDown, Download } from "lucide-react";
 import { Button } from "@/components/Button";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import profileImage from "@/assets/profile-image3.png";
 
 
 const skills = [
@@ -158,7 +159,7 @@ export const Hero = () => {
 
 
                   <div className="relative glass rounded-3xl p-2 glow-border glow-border-animated">
-                    <img src="src/assets/profile-image3.png"
+                    <img src={profileImage}
                       alt="Hannah Yudkin"
                       className="w-full aspect-[4/5] object-cover rounded-2xl profile-photo" />
 
