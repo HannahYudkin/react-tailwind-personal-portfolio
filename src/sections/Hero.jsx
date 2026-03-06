@@ -59,7 +59,7 @@ export const Hero = () => {
       <div className="absolute inset-0">
         <div className="hero-bg-image-mask absolute inset-0">
           <img
-            src="/hero-bg.png"
+            src={`${import.meta.env.BASE_URL}hero-bg.png`}
             alt="Hero Background"
             className="w-full h-full object-cover opacity-40"
           />
